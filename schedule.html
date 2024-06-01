@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="Assets/IMAGE/helicopterIcon.png">
+    <title>SKY EVAC</title>
+    <link rel="stylesheet" href="Assets/CSS/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="Serviços.html">Serviços</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <img src="Assets/IMAGE/Logo.jpg" alt="Logo do Site de Resgate" class="logo">
+    </header>
+
+    <main>
+        <section class="schedule">
+            <h1>Agendar Serviço</h1>
+            <div class="schedule-content">
+                <p id="message" class="hidden"></p>
+
+                <form id="schedule-form">
+                    <input type="hidden" id="service" name="service" value="">
+                    
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required>
+                    <span class="error hidden" id="name-error">Por favor, insira seu nome.</span>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error hidden" id="email-error">Por favor, insira um email válido.</span>
+                    
+                    <label for="phone">Telefone:</label>
+                    <input type="text" id="phone" name="phone" required>
+                    <span class="error hidden" id="phone-error">Por favor, insira seu telefone.</span>
+                    
+                    <label for="date">Data:</label>
+                    <input type="date" id="date" name="date" required>
+                    <span class="error hidden" id="date-error">Por favor, escolha uma data.</span>
+                    
+                    <label for="time">Hora:</label>
+                    <input type="time" id="time" name="time" required>
+                    <span class="error hidden" id="time-error">Por favor, escolha uma hora.</span>
+                    
+                    <button type="submit">Agendar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SKY EVAC.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const service = urlParams.get('service');
+            if (service) {
+                document.getElementById('service').value = service;
+            }
+
+            const form = document.getElementById('schedule-form');
+            const message = document.getElementById('message');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+
+                const errorMessages = document.querySelectorAll('.error');
+                errorMessages.forEach(error => error.classList.add('hidden'));
+
+                let isValid = true;
+
+                const name = document.getElementById('name').value.trim();
+                if (name === "") {
+                    document.getElementById('name-error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                const email = document.getElementById('email').value.trim();
+                if (email === "" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('email-error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+     
+                const phone = document.getElementById('phone').value.trim();
+                if (phone === "") {
+                    document.getElementById('phone-error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+ 
+                const date = document.getElementById('date').value.trim();
+                if (date === "") {
+                    document.getElementById('date-error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                const time = document.getElementById('time').value.trim();
+                if (time === "") {
+                    document.getElementById('time-error').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                if (isValid) {
+  
+                    setTimeout(() => {
+                        const success = Math.random() > 0.2; 
+
+                        if (success) {
+                            message.className = 'success-message';
+                            message.textContent = 'Agendamento realizado com sucesso!';
+                        } else {
+                            message.className = 'error-message';
+                            message.textContent = 'Falha ao realizar o agendamento. Por favor, tente novamente.';
+                        }
+
+                        message.classList.remove('hidden');
+                    }, 1000); 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
